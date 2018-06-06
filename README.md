@@ -77,7 +77,7 @@ And that's it. `darkflow` will take care of the rest. You can also set darkflow 
 
 ## Design the net
 
-Skip this if you are working with one of the original configurations since they are already there. Otherwise, see the following example:
+OPTIONAL: Skip this if you are working with one of the original configurations since they are already there. Otherwise, see the following example:
 
 ```python
 ...
@@ -110,7 +110,67 @@ First, let's take a closer look at one of a very useful option `--load`
 ```bash
 # 1. Load tiny-yolo.weights
 flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights --savepb --verbalise 
+```
 
+If all went well, you should see something similar to:
+
+```
+davevoyles@dv-dlvm-ubuntu:/tmp/mozilla_davevoyles0/darkflow-master$ flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights --savepb --verbalise
+/anaconda/envs/py35/lib/python3.5/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+
+/tmp/mozilla_davevoyles0/darkflow-master/darkflow/dark/darknet.py:54: UserWarning: ./cfg/yolo-tiny.cfg not found, use cfg/v1/yolo-tiny.cfg instead
+  cfg_path, FLAGS.model))
+Parsing cfg/v1/yolo-tiny.cfg
+Loading bin/yolo-tiny.weights ...
+Successfully identified 180357512 bytes
+Finished in 0.00400090217590332s
+Model has a VOC model name, loading VOC labels.
+
+Building net ...
+Source | Train? | Layer description                | Output size
+-------+--------+----------------------------------+---------------
+       |        | input                            | (?, 448, 448, 3)
+ Load  |  Yep!  | scale to (-1, 1)                 | (?, 448, 448, 3)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 448, 448, 16)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 224, 224, 16)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 224, 224, 32)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 112, 112, 32)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 112, 112, 64)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 56, 56, 64)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 56, 56, 128)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 28, 28, 128)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 28, 28, 256)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 14, 14, 256)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 14, 14, 512)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 7, 7, 512)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 7, 7, 1024)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 7, 7, 1024)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 7, 7, 1024)
+ Load  |  Yep!  | flat                             | (?, 50176)
+ Load  |  Yep!  | full 50176 x 256  linear         | (?, 256)
+ Load  |  Yep!  | full 256 x 4096  leaky           | (?, 4096)
+ Load  |  Yep!  | drop                             | (?, 4096)
+ Load  |  Yep!  | full 4096 x 1470  linear         | (?, 1470)
+-------+--------+----------------------------------+---------------
+Running entirely on CPU
+2018-06-06 22:21:03.991220: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-06-06 22:21:09.417456: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
+name: Tesla K80 major: 3 minor: 7 memoryClockRate(GHz): 0.8235
+pciBusID: 9340:00:00.0
+totalMemory: 11.17GiB freeMemory: 11.10GiB
+2018-06-06 22:21:09.417774: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
+Finished in 36.41262149810791s
+
+Rebuild a constant version ...
+2018-06-06 22:21:37.019380: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
+2018-06-06 22:21:37.224531: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
+2018-06-06 22:21:37.224847: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10765 MB memory) -> physical GPU (device: 0, name: Tesla K80, pci bus id: 9340:00:00.0, compute capability: 3.7)
+Done
+```
+
+
+```bash
 # 2. To completely initialize a model, leave the --load option
 flow --model cfg/yolo-new.cfg
 
