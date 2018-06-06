@@ -34,11 +34,25 @@ You can choose _one_ of the following three ways to get started with darkflow.
     pip install .
     ```
     
-## Downlod the weights
+### Downlod the weights
 
 In case the weight file cannot be found, I uploaded some of mine [here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include `yolo-full` and `yolo-tiny` of v1.0, `tiny-yolo-v1.1` of v1.1 and `yolo`, `tiny-yolo-voc` of v2.
 
-You will need to rename `yolo-tiny` to `tiny-yolo`.
+You will need to rename `yolo-tiny` to `tiny-yolo`, and place all of the weightsin the `bin/` folder. In the end, your structure should look like this:
+
+
+|- darkflow-master/
+
+|--- bin/
+
+|------ yolo.weights
+
+|------ yolo-tiny.weights
+
+|------ tiny-yolo-weights
+
+|------ yolo3.weights
+
 
 ## Update
 
@@ -95,7 +109,7 @@ First, let's take a closer look at one of a very useful option `--load`
 
 ```bash
 # 1. Load tiny-yolo.weights
-flow --model cfg/tiny-yolo.cfg --load bin/tiny-yolo.weights
+flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights --savepb --verbalise 
 
 # 2. To completely initialize a model, leave the --load option
 flow --model cfg/yolo-new.cfg
