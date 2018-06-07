@@ -108,8 +108,9 @@ First, let's take a closer look at one of a very useful option `--load`
 
 ```bash
 # 1. Load tiny-yolo.weights
-flow --model cfg/tiny-yolo.cfg --load bin/tiny-yolo.weights --savepb --verbalise 
+flow --model cfg/v1/yolo-tiny.cfg --load bin/tiny-yolo.weights --savepb --verbalise 
 ```
+**NOTE:** If you see the error ```AssertionError: expect 64701556 bytes, found 180357512``` that menans your .cfg and .weights files do not match up. Notice that we are using the `v1/yolo-tiny.cfg` file here, and NOT the `tiny-yolo.cfg` file in the `/cfg` folder.
 
 If all went well, you should see something similar to:
 
