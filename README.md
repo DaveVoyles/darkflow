@@ -177,8 +177,8 @@ Let's try running a new model, utilizing one of the .cfg files that came with Da
 flow --model cfg/yolo-tiny.cfg
 
 # 3. It is useful to reuse the first identical layers of tiny for `yolo-new`
-flow --model cfg/yolo-new.cfg --load bin/tiny-yolo.weights
 # this will print out which layers are reused, which are initialized
+flow --model cfg/yolo-tiny.cfg --load bin/yolo-tiny.weights
 ```
 
 All input images from default folder `sample_img/` are flowed through the net and predictions are put in `sample_img/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, images folder, etc.
