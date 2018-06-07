@@ -38,7 +38,7 @@ Install Darkflow. There are 3 methods of doing so, and you only need to do **one
 
 In case the weight file cannot be found, I uploaded some of mine [here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include `yolo-full` and `yolo-tiny` of v1.0, `tiny-yolo-v1.1` of v1.1 and `yolo`, `tiny-yolo-voc` of v2.
 
-You will need to place all of the weightsin the `bin/` folder. Also rename `yolo-tiny.weights` to `tiny-yolo.weights`. In the end, your structure should look like this:
+You will need to place all of the weightsin the `bin/` folder. In the end, your structure should look like this:
 
 ```
 |- darkflow-master/
@@ -47,7 +47,7 @@ You will need to place all of the weightsin the `bin/` folder. Also rename `yolo
 
 |------ yolo.weights
 
-|------ tiny-yolo-weights
+|------ yolo-tiny.weights
 
 |------ yolo3.weights
 ```
@@ -107,10 +107,10 @@ flow --h
 First, let's take a closer look at one of a very useful option `--load`
 
 ```bash
-# 1. Load tiny-yolo.weights
-flow --model cfg/v1/yolo-tiny.cfg --load bin/tiny-yolo.weights --savepb --verbalise 
+# 1. Load yolo-tiny.weights
+flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights --savepb --verbalise
 ```
-**NOTE:** If you see the error ```AssertionError: expect 64701556 bytes, found 180357512``` that menans your .cfg and .weights files do not match up. Notice that we are using the `v1/yolo-tiny.cfg` file here, and NOT the `tiny-yolo.cfg` file in the `/cfg` folder.
+**NOTE:** If you see the error ```AssertionError: expect 64701556 bytes, found 180357512``` that menans your .cfg and .weights files do not match up. Notice that we are using the `v1/yolo-tiny.cfg` file here, and NOT the `tiny-yolo.cfg` file in the `/cfg` folder. See [Mikeknapp's answer to this issue](https://github.com/thtrieu/darkflow/issues/620)
 
 If all went well, you should see something similar to:
 
@@ -173,11 +173,12 @@ Let's try running a new model, utilizing one of the .cfg files that came with Da
 
 ```bash
 # 2. To initialize a model, leave the --load option
+# NOTE: The name is tiny-yolo.cfg now, and NOT tiny.yolo
 flow --model cfg/tiny-yolo.cfg
 
 # 3. It is useful to reuse the first identical layers of tiny for `yolo-new`
 # this will print out which layers are reused, which are initialized
-flow --model cfg/tiny-yolo.cfg --load bin/tiny-yolo.weights
+flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights
 ```
 
 All input images from default folder `sample_img/` are flowed through the net and predictions are put in `sample_img/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, images folder, etc.
