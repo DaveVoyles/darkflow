@@ -17,19 +17,19 @@ Python3, tensorflow 1.0, numpy, opencv 3.
 
 ### Getting started
 
-You can choose _one_ of the following three ways to get started with darkflow.
+Install Darkflow. There are 3 methods of doing so, and you only need to do **one**. I've found that methond **2** worked best. 
 
-1. Just build the Cython extensions in place. NOTE: If installing this way you will have to use `./flow` in the cloned darkflow directory instead of `flow` as darkflow is not installed globally.
+* Build the Cython extensions in place. **NOTE:** *If installing this way you will have to use `./flow` in the cloned darkflow directory instead of `flow` as darkflow is not installed globally.*
     ```
     python3 setup.py build_ext --inplace
     ```
 
-2. Let pip install darkflow globally in dev mode (still globally accessible, but changes to the code immediately take effect)
+* Let pip install darkflow globally in dev mode (still globally accessible, but changes to the code immediately take effect)
     ```
     pip install -e .
     ```
 
-3. Install with pip globally
+* Install with pip globally
     ```
     pip install .
     ```
