@@ -15,14 +15,9 @@ See demo below or see on [this imgur](http://i.imgur.com/EyZZKAA.gif)
 
 Python3, tensorflow 1.0, numpy, opencv 3.
 
-### Getting started
+### Install Darkflow
 
-Install Darkflow. There are 3 methods of doing so, and you only need to do **one**. I've found that methond **2** worked best. 
-
-* Build the Cython extensions in place. **NOTE:** *If installing this way you will have to use `./flow` in the cloned darkflow directory instead of `flow` as darkflow is not installed globally.*
-    ```
-    python3 setup.py build_ext --inplace
-    ```
+There are 3 methods of doing so, and you only need to do **one**. I've found that **pip install -e .** worked best. 
 
 * Let pip install darkflow globally in dev mode (still globally accessible, but changes to the code immediately take effect)
     ```
@@ -32,6 +27,11 @@ Install Darkflow. There are 3 methods of doing so, and you only need to do **one
 * Install with pip globally
     ```
     pip install .
+    ```
+    
+* Build the Cython extensions in place. **NOTE:** *If installing this way you will have to use `./flow` in the cloned darkflow directory instead of `flow` as darkflow is not installed globally.*
+    ```
+    python3 setup.py build_ext --inplace
     ```
     
 ### Downlod the weights
