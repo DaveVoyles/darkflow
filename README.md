@@ -38,9 +38,9 @@ Install Darkflow. There are 3 methods of doing so, and you only need to do **one
 
 In case the weight file cannot be found, I uploaded some of mine [here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include `yolo-full` and `yolo-tiny` of v1.0, `tiny-yolo-v1.1` of v1.1 and `yolo`, `tiny-yolo-voc` of v2.
 
-You will need to rename `yolo-tiny` to `tiny-yolo`, and place all of the weightsin the `bin/` folder. In the end, your structure should look like this:
+You will need to place all of the weightsin the `bin/` folder. In the end, your structure should look like this:
 
-
+```
 |- darkflow-master/
 
 |--- bin/
@@ -52,6 +52,7 @@ You will need to rename `yolo-tiny` to `tiny-yolo`, and place all of the weights
 |------ tiny-yolo-weights
 
 |------ yolo3.weights
+```
 
 
 ## Update
