@@ -170,10 +170,11 @@ Rebuild a constant version ...
 Done
 ```
 
+Let's try running a new model, utilizing one of the .cfg files that came with Darkflow. You can replace `tiny-yolo` with any of the other config files found in the `cfg` or its folders.
 
 ```bash
-# 2. To completely initialize a model, leave the --load option
-flow --model cfg/yolo-new.cfg
+# 2. To initialize a model, leave the --load option
+flow --model cfg/yolo-tiny.cfg
 
 # 3. It is useful to reuse the first identical layers of tiny for `yolo-new`
 flow --model cfg/yolo-new.cfg --load bin/tiny-yolo.weights
