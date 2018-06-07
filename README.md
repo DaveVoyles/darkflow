@@ -38,7 +38,7 @@ Install Darkflow. There are 3 methods of doing so, and you only need to do **one
 
 In case the weight file cannot be found, I uploaded some of mine [here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include `yolo-full` and `yolo-tiny` of v1.0, `tiny-yolo-v1.1` of v1.1 and `yolo`, `tiny-yolo-voc` of v2.
 
-You will need to place all of the weightsin the `bin/` folder. In the end, your structure should look like this:
+You will need to place all of the weightsin the `bin/` folder. Also rename `yolo-tiny.weights` to `tiny-yolo.weights`. In the end, your structure should look like this:
 
 ```
 |- darkflow-master/
@@ -46,8 +46,6 @@ You will need to place all of the weightsin the `bin/` folder. In the end, your 
 |--- bin/
 
 |------ yolo.weights
-
-|------ yolo-tiny.weights
 
 |------ tiny-yolo-weights
 
@@ -110,7 +108,7 @@ First, let's take a closer look at one of a very useful option `--load`
 
 ```bash
 # 1. Load tiny-yolo.weights
-flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights --savepb --verbalise 
+flow --model cfg/tiny-yolo.cfg --load bin/tiny-yolo.weights --savepb --verbalise 
 ```
 
 If all went well, you should see something similar to:
@@ -174,11 +172,11 @@ Let's try running a new model, utilizing one of the .cfg files that came with Da
 
 ```bash
 # 2. To initialize a model, leave the --load option
-flow --model cfg/yolo-tiny.cfg
+flow --model cfg/tiny-yolo.cfg
 
 # 3. It is useful to reuse the first identical layers of tiny for `yolo-new`
 # this will print out which layers are reused, which are initialized
-flow --model cfg/yolo-tiny.cfg --load bin/yolo-tiny.weights
+flow --model cfg/tiny-yolo.cfg --load bin/tiny-yolo.weights
 ```
 
 All input images from default folder `sample_img/` are flowed through the net and predictions are put in `sample_img/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, images folder, etc.
