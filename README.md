@@ -43,7 +43,7 @@ A weight is the strength of the connection between nodes in a neural network. If
 
 These can grow to 100mb+ per file, so for that reason they are not included in the repository.  In case the weight file cannot be found on the [Darknet site](https://pjreddie.com/darknet/yolo/), the [author of Darkflow uploaded some of his here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include yolo-full and yolo-tiny of v1.0, tiny-yolo-v1.1 of v1.1 and yolo, tiny-yolo-voc of v2.
 
-You will need to place all of the weights in the `bin/` folder.  I would recommend re-naming the `yolo-tiny` to `tiny-yolo` so that the names are consistent with the `.cfg` files you will pair them with in the following steps.  In the end, your structure should look like this:
+You will need to place all of the weights in the `bin/` folder. In the end, your structure should look like this:
 
 ```
 |- darkflow-master/
@@ -53,6 +53,8 @@ You will need to place all of the weights in the `bin/` folder.  I would recomme
 |------ yolo.weights
 
 |------ tiny-yolo.weights
+
+|------ yolo-tiny.weights
 
 |------ tiny-yolo-v1.1.weights
 
