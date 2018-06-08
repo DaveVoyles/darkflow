@@ -19,8 +19,9 @@ See demo below or see on [this imgur](http://i.imgur.com/EyZZKAA.gif)
 Python3, tensorflow 1.0, numpy, opencv 3.
 
 ### Install Darkflow
+Change into the directory where you downloaded Darkflow. 
 
-There are 3 methods of doing so, and you only need to do **one**. I've found that **pip install -e .** worked best. 
+There are 3 methods of installing, and you only need to do **one**. I've found that **pip install -e .** worked best. 
 
 * Let pip install darkflow globally in dev mode (still globally accessible, but changes to the code immediately take effect)
     ```
@@ -79,7 +80,7 @@ And that's it. `darkflow` will take care of the rest. You can also set darkflow 
 
 ## Design the net
 
-OPTIONAL: Skip this if you are working with one of the original configurations since they are already there. Otherwise, see the following example:
+**OPTIONAL:** Skip this if you are working with one of the original configurations since they are already there. Otherwise, see the following example:
 
 ```python
 ...
