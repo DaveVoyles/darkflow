@@ -206,6 +206,38 @@ Source | Train? | Layer description                | Output size
 flow --model cfg/v1/tiny-yolo.cfg --load bin/tiny-yolo.weights
 ```
 
+Which should return:
+
+```
+Building net ...
+Source | Train? | Layer description                | Output size
+-------+--------+----------------------------------+---------------
+       |        | input                            | (?, 448, 448, 3)
+ Load  |  Yep!  | scale to (-1, 1)                 | (?, 448, 448, 3)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 448, 448, 16)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 224, 224, 16)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 224, 224, 32)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 112, 112, 32)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 112, 112, 64)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 56, 56, 64)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 56, 56, 128)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 28, 28, 128)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 28, 28, 256)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 14, 14, 256)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 14, 14, 512)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 7, 7, 512)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 7, 7, 1024)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 7, 7, 1024)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 7, 7, 1024)
+ Load  |  Yep!  | flat                             | (?, 50176)
+ Load  |  Yep!  | full 50176 x 256  linear         | (?, 256)
+ Load  |  Yep!  | full 256 x 4096  leaky           | (?, 4096)
+ Load  |  Yep!  | drop                             | (?, 4096)
+ Load  |  Yep!  | full 4096 x 1470  linear         | (?, 1470)
+-------+--------+----------------------------------+---------------
+
+```
+
 All input images from default folder `sample_img/` are flowed through the net and predictions are put in `sample_img/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, images folder, etc.
 
 ```bash
