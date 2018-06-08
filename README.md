@@ -6,12 +6,11 @@ Real-time object detection and classification. Paper: [version 1](https://arxiv.
 
 Read more about YOLO (in darknet) and download weight files [here](http://pjreddie.com/darknet/yolo/). 
 
-
 See demo below or see on [this imgur](http://i.imgur.com/EyZZKAA.gif)
 
 <p align="center"> <img src="demo.gif"/> </p>
 
-## Dependencies
+### Dependencies
 
 Python3, tensorflow 1.0, numpy, opencv 3.
 
@@ -36,7 +35,11 @@ There are 3 methods of doing so, and you only need to do **one**. I've found tha
     
 ### Downlod the weights
 
-You will need to place all of the weightsin the `bin/` folder. In the end, your structure should look like this:
+A weight is the strength of the connection between nodes in a neural network. If you increase the input then how much influence does it have on the output. Weights near zero mean changing this input will not change the output. Weights and biases are the learnable parameters of your model. The values of these parameters before learning starts are initialised randomly (this stops them all converging to a single value). Then, when presented with data during training, they are adjusted towards values that have correct output. This is what is currently in these different weight files.
+
+These can grow to 100mb+ per file, so for that reason they are not included in the repository. 
+
+You will need to place all of the weights in the `bin/` folder.  I would recommend re-naming the `yolo-tiny` to `tiny-yolo` so that the names are consistent with the `.cfg` files you will pair them with in the following steps.  In the end, your structure should look like this:
 
 ```
 |- darkflow-master/
@@ -47,16 +50,12 @@ You will need to place all of the weightsin the `bin/` folder. In the end, your 
 
 |------ tiny-yolo.weights
 
+|------ tiny-yolo-v1.1.weights
+
+|------ tiny-yolo-voc.weights
+
 |------ yolo3.weights
 ```
-
-
-## Update
-
-**Android demo on Tensorflow's** [here](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/android/src/org/tensorflow/demo/TensorFlowYoloDetector.java)
-
-**I am looking for help:**
- - `help wanted` labels in issue track
 
 ## Parsing the annotations
 
