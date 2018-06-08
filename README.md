@@ -203,7 +203,8 @@ Source | Train? | Layer description                | Output size
 ```bash
 # 3. It is useful to reuse the first identical layers of tiny for `yolo-new`
 # this will print out which layers are reused, which are initialized
-flow --model cfg/v1/tiny-yolo.cfg --load bin/tiny-yolo.weights
+flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights
+
 ```
 
 Which should return:
