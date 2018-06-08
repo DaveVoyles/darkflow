@@ -248,11 +248,42 @@ Source | Train? | Layer description                | Output size
 All input images from default folder `sample_img/` are flowed through the net and predictions are put in `sample_img/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, images folder, etc.
 
 ### Utilizing the GPU
-We can take advantage of the GPU by adding the ``gpu 1.0`` flag as well.
+We can take advantage of the GPU by adding the ``gpu .50`` flag as well, which will use 50% of the GPU's memory. I've found that setting it to 1.0 and using 100% of the memory can often cause issues with CUDA and throw an out of memory error, such as:
+
+```
+ E tensorflow/stream_executor/cuda/cuda_driver.cc:936] failed to allocate 11.17G (11996954624 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY
+ ```
+ 
+ You can also gather information abotu your GPU by entering this command:
+
+```bash
+nvidia-smi
+```
+
+```
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 390.30                 Driver Version: 390.30                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  Tesla K80           Off  | 0000BD3F:00:00.0 Off |                    0 |
+| N/A   40C    P0    81W / 149W |      0MiB / 11441MiB |     96%      Default |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+```
+
+
 
 ```bash
 # Forward all images in sample_img/ using tiny yolo and 100% GPU usage
-flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights --imgdir sample_img/ --gpu 1.0
+flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights --imgdir sample_img/ --gpu .50
 ```
 
 The output will look similar to this:
@@ -261,7 +292,7 @@ The output will look similar to this:
 Parsing cfg/v1/yolo-tiny.cfg
 Loading bin/yolo-tiny.weights ...
 Successfully identified 180357512 bytes
-Finished in 0.004228353500366211s
+Finished in 0.004160642623901367s
 Model has a VOC model name, loading VOC labels.
 
 Building net ...
@@ -290,23 +321,21 @@ Source | Train? | Layer description                | Output size
  Load  |  Yep!  | drop                             | (?, 4096)
  Load  |  Yep!  | full 4096 x 1470  linear         | (?, 1470)
 -------+--------+----------------------------------+---------------
-GPU mode with 1.0 usage
-2018-06-08 15:45:17.711355: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
-^[[2018-06-08 15:45:24.171648: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
+GPU mode with 0.5 usage
+2018-06-08 16:03:51.244292: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-06-08 16:03:57.877822: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
 name: Tesla K80 major: 3 minor: 7 memoryClockRate(GHz): 0.8235
 pciBusID: bd3f:00:00.0
 totalMemory: 11.17GiB freeMemory: 11.10GiB
-2018-06-08 15:45:24.171694: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
-2018-06-08 15:45:24.454680: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11441 MB memory) -> physical GPU (device: 0, name: Tesla K80, pci bus id: bd3f:00:00.0, compute capability: 3.7)
-2018-06-08 15:45:24.469000: E tensorflow/stream_executor/cuda/cuda_driver.cc:936] failed to allocate 11.17G (11996954624 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY
-Finished in 10.985207319259644s
+2018-06-08 16:03:57.878133: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
+2018-06-08 16:03:58.172470: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5720 MB memory) -> physical GPU (device: 0, name: Tesla K80, pci bus id: bd3f:00:00.0, compute capability: 3.7)
+Finished in 11.172759771347046s
 
 Forwarding 8 inputs ...
-Total time = 19.503355026245117s / 8 inps = 0.4101858367052553 ips
+Total time = 1.121574878692627s / 8 inps = 7.13282737691599 ips
 Post processing 8 inputs ...
-Total time = 0.2859928607940674s / 8 inps = 27.972726234451343 ips
+Total time = 0.1555933952331543s / 8 inps = 51.41606421025856 ips
 ```
-
 
 json output can be generated with descriptions of the pixel location of each bounding box and the pixel location. Each prediction is stored in the `sample_img/out` folder by default. An example json array is shown below.
 ```bash
