@@ -36,8 +36,6 @@ There are 3 methods of doing so, and you only need to do **one**. I've found tha
     
 ### Downlod the weights
 
-In case the weight file cannot be found, I uploaded some of mine [here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include `yolo-full` and `yolo-tiny` of v1.0, `tiny-yolo-v1.1` of v1.1 and `yolo`, `tiny-yolo-voc` of v2.
-
 You will need to place all of the weightsin the `bin/` folder. In the end, your structure should look like this:
 
 ```
@@ -47,7 +45,7 @@ You will need to place all of the weightsin the `bin/` folder. In the end, your 
 
 |------ yolo.weights
 
-|------ yolo-tiny.weights
+|------ tiny-yolo.weights
 
 |------ yolo3.weights
 ```
@@ -107,22 +105,22 @@ flow --h
 First, let's take a closer look at one of a very useful option `--load`
 
 ```bash
-# 1. Load yolo-tiny.weights
-flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights --savepb --verbalise
+# 1. Load .weights
+flow --model cfg/v1/tiny-yolo.cfg --load bin/tiny-yolo.weights --savepb --verbalise
 ```
-**NOTE:** If you see the error ```AssertionError: expect 64701556 bytes, found 180357512``` that menans your .cfg and .weights files do not match up. Notice that we are using the `v1/yolo-tiny.cfg` file here, and NOT the `tiny-yolo.cfg` file in the `/cfg` folder. See [Mikeknapp's answer to this issue](https://github.com/thtrieu/darkflow/issues/620)
+**NOTE:** If you see the error ```AssertionError: expect 64701556 bytes, found 180357512``` that menans your .cfg and .weights files do not match up. Notice that we are using the `v1/tiny-yolo.cfg` file here, and NOT the `tiny-yolo.cfg` file in the `/cfg` folder. See [Mikeknapp's answer to this issue](https://github.com/thtrieu/darkflow/issues/620)
 
 If all went well, you should see something similar to:
 
 ```
-davevoyles@dv-dlvm-ubuntu:/tmp/mozilla_davevoyles0/darkflow-master$ flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights --savepb --verbalise
+davevoyles@dv-dlvm-ubuntu:/tmp/mozilla_davevoyles0/darkflow-master$ flow --model cfg/v1/tiny-yolo.cfg --load bin/tiny-yolo.weights --savepb --verbalise
 /anaconda/envs/py35/lib/python3.5/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
   from ._conv import register_converters as _register_converters
 
-/tmp/mozilla_davevoyles0/darkflow-master/darkflow/dark/darknet.py:54: UserWarning: ./cfg/yolo-tiny.cfg not found, use cfg/v1/yolo-tiny.cfg instead
+/tmp/mozilla_davevoyles0/darkflow-master/darkflow/dark/darknet.py:54: UserWarning: ./cfg/tiny-yolo.cfg not found, use cfg/v1/tiny-yolo.cfg instead
   cfg_path, FLAGS.model))
-Parsing cfg/v1/yolo-tiny.cfg
-Loading bin/yolo-tiny.weights ...
+Parsing cfg/v1/tiny-yolo.cfg
+Loading bin/tiny-yolo.weights ...
 Successfully identified 180357512 bytes
 Finished in 0.00400090217590332s
 Model has a VOC model name, loading VOC labels.
@@ -178,7 +176,7 @@ flow --model cfg/tiny-yolo.cfg
 
 # 3. It is useful to reuse the first identical layers of tiny for `yolo-new`
 # this will print out which layers are reused, which are initialized
-flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights
+flow --model cfg/v1/tiny-yolo.cfg --load bin/tiny-yolo.weights
 ```
 
 All input images from default folder `sample_img/` are flowed through the net and predictions are put in `sample_img/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, images folder, etc.
@@ -208,7 +206,7 @@ JSON output:
 Training is simple as you only have to add option `--train`. Training set and annotation will be parsed if this is the first time a new configuration is trained. To point to training set and annotations, use option `--dataset` and `--annotation`. A few examples:
 
 ```bash
-# Initialize yolo-new from yolo-tiny, then train the net on 100% GPU:
+# Initialize yolo-new from tiny-yolo, then train the net on 100% GPU:
 flow --model cfg/yolo-new.cfg --load bin/tiny-yolo.weights --train --gpu 1.0
 
 # Completely initialize yolo-new and train it with ADAM optimizer
@@ -224,7 +222,7 @@ flow --train --model cfg/yolo-new.cfg --load -1
 # Test with checkpoint at step 1500
 flow --model cfg/yolo-new.cfg --load 1500
 
-# Fine tuning yolo-tiny from the original one
+# Fine tuning tiny-yolo from the original one
 flow --train --model cfg/tiny-yolo.cfg --load bin/tiny-yolo.weights
 ```
 
