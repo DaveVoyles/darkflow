@@ -173,7 +173,34 @@ Let's try running a new model, utilizing one of the .cfg files that came with Da
 # 2. To initialize a model, leave the --load option
 # NOTE: The name is tiny-yolo.cfg now, and NOT tiny.yolo
 flow --model cfg/tiny-yolo.cfg
+```
 
+This should return:
+
+```
+Building net ...
+Source | Train? | Layer description                | Output size
+-------+--------+----------------------------------+---------------
+       |        | input                            | (?, 416, 416, 3)
+ Init  |  Yep!  | conv 3x3p1_1  +bnorm  leaky      | (?, 416, 416, 16)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 208, 208, 16)
+ Init  |  Yep!  | conv 3x3p1_1  +bnorm  leaky      | (?, 208, 208, 32)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 104, 104, 32)
+ Init  |  Yep!  | conv 3x3p1_1  +bnorm  leaky      | (?, 104, 104, 64)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 52, 52, 64)
+ Init  |  Yep!  | conv 3x3p1_1  +bnorm  leaky      | (?, 52, 52, 128)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 26, 26, 128)
+ Init  |  Yep!  | conv 3x3p1_1  +bnorm  leaky      | (?, 26, 26, 256)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 13, 13, 256)
+ Init  |  Yep!  | conv 3x3p1_1  +bnorm  leaky      | (?, 13, 13, 512)
+ Load  |  Yep!  | maxp 2x2p0_1                     | (?, 13, 13, 512)
+ Init  |  Yep!  | conv 3x3p1_1  +bnorm  leaky      | (?, 13, 13, 1024)
+ Init  |  Yep!  | conv 3x3p1_1  +bnorm  leaky      | (?, 13, 13, 1024)
+ Init  |  Yep!  | conv 1x1p0_1    linear           | (?, 13, 13, 425)
+-------+--------+----------------------------------+---------------
+```
+
+```bash
 # 3. It is useful to reuse the first identical layers of tiny for `yolo-new`
 # this will print out which layers are reused, which are initialized
 flow --model cfg/v1/tiny-yolo.cfg --load bin/tiny-yolo.weights
