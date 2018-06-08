@@ -337,6 +337,10 @@ Post processing 8 inputs ...
 Total time = 0.1555933952331543s / 8 inps = 51.41606421025856 ips
 ```
 
+### Making sense of the output
+
+Check the `sample_img/out` folder, which should now contain a series of images along with a .json file for each. This will illustrate the bounding boxes overlayed on top of each image, along with their coordinates stored in the .json file. 
+
 json output can be generated with descriptions of the pixel location of each bounding box and the pixel location. Each prediction is stored in the `sample_img/out` folder by default. An example json array is shown below.
 ```bash
 # Forward all images in sample_img/ using tiny yolo and JSON output.
