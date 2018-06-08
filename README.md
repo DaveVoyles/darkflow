@@ -241,10 +241,67 @@ Source | Train? | Layer description                | Output size
 
 All input images from default folder `sample_img/` are flowed through the net and predictions are put in `sample_img/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, images folder, etc.
 
+### Utilizing the GPU
+We can take advantage of the GPU by adding the ``gpu 1.0`` flag as well.
+
 ```bash
 # Forward all images in sample_img/ using tiny yolo and 100% GPU usage
-flow --imgdir sample_img/ --model cfg/tiny-yolo.cfg --load bin/tiny-yolo.weights --gpu 1.0
+flow --model cfg/v1/yolo-tiny.cfg --load bin/yolo-tiny.weights --imgdir sample_img/ --gpu 1.0
 ```
+
+The output will look similar to this:
+
+```
+Parsing cfg/v1/yolo-tiny.cfg
+Loading bin/yolo-tiny.weights ...
+Successfully identified 180357512 bytes
+Finished in 0.004228353500366211s
+Model has a VOC model name, loading VOC labels.
+
+Building net ...
+Source | Train? | Layer description                | Output size
+-------+--------+----------------------------------+---------------
+       |        | input                            | (?, 448, 448, 3)
+ Load  |  Yep!  | scale to (-1, 1)                 | (?, 448, 448, 3)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 448, 448, 16)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 224, 224, 16)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 224, 224, 32)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 112, 112, 32)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 112, 112, 64)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 56, 56, 64)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 56, 56, 128)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 28, 28, 128)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 28, 28, 256)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 14, 14, 256)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 14, 14, 512)
+ Load  |  Yep!  | maxp 2x2p0_2                     | (?, 7, 7, 512)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 7, 7, 1024)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 7, 7, 1024)
+ Load  |  Yep!  | conv 3x3p1_1    leaky            | (?, 7, 7, 1024)
+ Load  |  Yep!  | flat                             | (?, 50176)
+ Load  |  Yep!  | full 50176 x 256  linear         | (?, 256)
+ Load  |  Yep!  | full 256 x 4096  leaky           | (?, 4096)
+ Load  |  Yep!  | drop                             | (?, 4096)
+ Load  |  Yep!  | full 4096 x 1470  linear         | (?, 1470)
+-------+--------+----------------------------------+---------------
+GPU mode with 1.0 usage
+2018-06-08 15:45:17.711355: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+^[[2018-06-08 15:45:24.171648: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
+name: Tesla K80 major: 3 minor: 7 memoryClockRate(GHz): 0.8235
+pciBusID: bd3f:00:00.0
+totalMemory: 11.17GiB freeMemory: 11.10GiB
+2018-06-08 15:45:24.171694: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
+2018-06-08 15:45:24.454680: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11441 MB memory) -> physical GPU (device: 0, name: Tesla K80, pci bus id: bd3f:00:00.0, compute capability: 3.7)
+2018-06-08 15:45:24.469000: E tensorflow/stream_executor/cuda/cuda_driver.cc:936] failed to allocate 11.17G (11996954624 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY
+Finished in 10.985207319259644s
+
+Forwarding 8 inputs ...
+Total time = 19.503355026245117s / 8 inps = 0.4101858367052553 ips
+Post processing 8 inputs ...
+Total time = 0.2859928607940674s / 8 inps = 27.972726234451343 ips
+```
+
+
 json output can be generated with descriptions of the pixel location of each bounding box and the pixel location. Each prediction is stored in the `sample_img/out` folder by default. An example json array is shown below.
 ```bash
 # Forward all images in sample_img/ using tiny yolo and JSON output.
