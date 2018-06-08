@@ -3,7 +3,7 @@
 
 ##### Real-time object detection and classification. 
 
-Darknet is an open source neural network framework written in C and CUDA. It is fast, easy to install, and supports CPU and GPU computation. Darkflow is a TensorFlow implementation of Darknet, which allows you to write your code in Python.
+Darknet is an open source neural network framework written in C and CUDA. It is fast, easy to install, and supports CPU and GPU computation. Darkflow is a TensorFlow implementation of Darknet, which allows you to write your code in Python. You only look once (YOLO) is a state-of-the-art, real-time object detection system. On a Pascal Titan X it processes images at 30 FPS and has a mAP of 57.9% on COCO test-dev.
 
 -------------------------------------
 
