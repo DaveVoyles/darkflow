@@ -37,7 +37,7 @@ There are 3 methods of doing so, and you only need to do **one**. I've found tha
 
 A weight is the strength of the connection between nodes in a neural network. If you increase the input then how much influence does it have on the output. Weights near zero mean changing this input will not change the output. Weights and biases are the learnable parameters of your model. The values of these parameters before learning starts are initialised randomly (this stops them all converging to a single value). Then, when presented with data during training, they are adjusted towards values that have correct output. This is what is currently in these different weight files.
 
-These can grow to 100mb+ per file, so for that reason they are not included in the repository. 
+These can grow to 100mb+ per file, so for that reason they are not included in the repository.  In case the weight file cannot be found on the [Darknet site](https://pjreddie.com/darknet/yolo/), the [author of Darkflow uploaded some of his here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include yolo-full and yolo-tiny of v1.0, tiny-yolo-v1.1 of v1.1 and yolo, tiny-yolo-voc of v2.
 
 You will need to place all of the weights in the `bin/` folder.  I would recommend re-naming the `yolo-tiny` to `tiny-yolo` so that the names are consistent with the `.cfg` files you will pair them with in the following steps.  In the end, your structure should look like this:
 
